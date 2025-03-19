@@ -1,47 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <title>Jogo das Bandeiras</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
-    <style>
-        .bandeira {
-            width: 300px;
-            height: auto;
-            filter: blur(10px);
-            transition: filter 0.5s ease;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Qual é esta bandeira?</h1>
-    <img id="bandeira" src="{{ url_for('static', filename='images/bandeira.png') }}" class="bandeira">
-
+    <h1>Qual é a bandeira?</h1>
+    <img id="bandeira" class="bandeira" src="{{ bandeira[1] }}" alt="Bandeira">
     <form id="form-palpite">
-        <input type="text" id="palpite" placeholder="Digite o país">
+        <input type="text" id="palpite" placeholder="Digite o nome do país">
         <button type="submit">Enviar</button>
     </form>
-
     <script>
-        document.getElementById("form-palpite").addEventListener("submit", function(event) {
-            event.preventDefault();
-            let input = document.getElementById("palpite").value.trim().toLowerCase();
-            
-            // Nome correto da bandeira (por enquanto fixo, depois vamos pegar do Flask)
-            let respostaCorreta = "brasil"; 
-
-            let imagem = document.getElementById("bandeira");
-            let blurAtual = parseInt(imagem.style.filter.replace("blur(", "").replace("px)", ""));
-
-            if (input === respostaCorreta) {
-                imagem.style.filter = "blur(0px)";
-                alert("Parabéns! Você acertou!");
-            } else {
-                if (blurAtual > 2) {
-                    imagem.style.filter = `blur(${blurAtual - 2}px)`;
-                }
-            }
-        });
+        const nomePais = "{{ bandeira[0] }}".toLowerCase();
     </script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
