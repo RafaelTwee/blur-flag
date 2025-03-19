@@ -3,32 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo das Bandeiras</title>
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <title>Blur Flag</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon1.png') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preload" href="{{ url_for('static', filename='fonts/Monoglyphic.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <h1>Blur Flag</h1>
-    
-    <div class="game-container">
-        <h2>Qual é a bandeira do dia?</h2>
-        <img id="bandeira" class="bandeira" src="{{ bandeira[1] }}" alt="Bandeira" style="filter: blur(10px);">
-        
-        <div class="input-container">
-            <form id="form-palpite">
-                <div class="autocomplete">
-                    <input type="text" id="palpite" placeholder="Digite o nome do país" autocomplete="off">
-                    <div id="paises-dropdown" class="dropdown-list"></div>
-                </div>
-                <button type="submit">Enviar</button>
-            </form>
+    <!-- Cabeçalho com ícones -->
+    <header class="main-header">
+        <div class="logo">Blur Flag</div>
+        <div class="nav-icons">
+            <a href="https://github.com/RafaelTwee/blur-flag" target="_blank" class="nav-icon">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://twitter.com/tweevlr" target="_blank" class="nav-icon">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <div class="nav-icon" id="settings-icon">
+                <i class="fas fa-cog"></i>
+            </div>
         </div>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+        <h1 style="font-size:70px;">Blur Flag</h1>
         
-        <div id="feedback"></div>
-        
-        <div class="contador">Cada tentativa incorreta diminui o desfoque da imagem</div>
-    </div>
+        <div class="game-container">
+            <h2>Qual é a bandeira do dia?</h2>
+            <img id="bandeira" class="bandeira" src="{{ bandeira[1] }}" alt="Bandeira" style="filter: blur(10px);">
+            
+            <!-- Botão para mudar bandeira (apenas para testes) -->
+            <div class="actions-container">
+                <button id="next-flag" class="btn-next-flag">
+                    <i class="fas fa-sync-alt"></i> Próxima Bandeira (Teste)
+                </button>
+            </div>
+            
+            <div class="input-container">
+                <form id="form-palpite">
+                    <div class="autocomplete">
+                        <input type="text" id="palpite" placeholder="Digite o nome do país" autocomplete="off">
+                        <div id="paises-dropdown" class="dropdown-list"></div>
+                    </div>
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+            
+            <div id="feedback"></div>
+            
+            <div class="contador">Cada tentativa incorreta diminui o desfoque da imagem</div>
+        </div>
+    </main>
     
+    <!-- Modal de configurações -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Configurações</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Configurações do jogo serão adicionadas aqui.</p>
+                <!-- Futuras opções de configuração -->
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>Jogo diário de adivinhação de bandeiras. Volte amanhã para uma nova bandeira!</p>
     </footer>

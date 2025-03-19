@@ -1,13 +1,56 @@
-// Arquivo: static/js/script.js
 document.addEventListener("DOMContentLoaded", function() {
     const formPalpite = document.getElementById("form-palpite");
     const inputPalpite = document.getElementById("palpite");
     const imgBandeira = document.getElementById("bandeira");
     const feedbackElement = document.getElementById("feedback");
     const dropdownList = document.getElementById("paises-dropdown");
+    const nextFlagBtn = document.getElementById("next-flag");
+    const settingsIcon = document.getElementById("settings-icon");
+    const settingsModal = document.getElementById("settings-modal");
+    const closeModal = document.querySelector(".close-modal");
     
     // O nomePais é definido no HTML diretamente
     let tentativas = 0;
+    
+    // Abrir modal de configurações
+    settingsIcon.addEventListener("click", function() {
+        settingsModal.style.display = "block";
+    });
+    
+    // Fechar modal de configurações
+    closeModal.addEventListener("click", function() {
+        settingsModal.style.display = "none";
+    });
+    
+    // Fechar modal ao clicar fora dele
+    window.addEventListener("click", function(event) {
+        if (event.target == settingsModal) {
+            settingsModal.style.display = "none";
+        }
+    });
+    
+    // Botão para mudar bandeira (apenas para testes)
+    nextFlagBtn.addEventListener("click", function() {
+        fetch('/proxima_bandeira', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                // Atualizar a imagem da bandeira
+                imgBandeira.src = data.url;
+                // Redefinir o blur
+                imgBandeira.style.filter = "blur(10px)";
+                // Redefinir o nome do país
+                window.nomePais = data.nome.toLowerCase();
+                // Redefinir o estado do jogo
+                tentativas = 0;
+                inputPalpite.disabled = false;
+                formPalpite.querySelector("button").disabled = false;
+                inputPalpite.value = "";
+                feedbackElement.innerHTML = "";
+            })
+            .catch(error => {
+                console.error('Erro ao buscar próxima bandeira:', error);
+            });
+    });
     
     // Lista de todos os países para o autocomplete
     fetch('/paises')
@@ -64,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let palpite = inputPalpite.value.trim().toLowerCase();
         
         // Usando a variável nomePais definida no HTML
-        if (palpite === nomePais) {
+        if (palpite === window.nomePais || palpite === nomePais) {
             imgBandeira.style.filter = "blur(0px)";
             feedbackElement.innerHTML = `<div class="success">Parabéns! Você acertou em ${tentativas} tentativa(s)!</div>`;
             inputPalpite.disabled = true;
@@ -88,7 +131,8 @@ document.addEventListener("DOMContentLoaded", function() {
             
             // Dando dicas baseadas na primeira letra
             let primeiraPalpite = palpite.charAt(0);
-            let primeiraCorreta = nomePais.charAt(0);
+            let paisCorreto = window.nomePais || nomePais;
+            let primeiraCorreta = paisCorreto.charAt(0);
             
             if (primeiraPalpite === primeiraCorreta) {
                 feedbackElement.innerHTML = "<div class='hint'>A primeira letra está correta. Continue tentando!</div>";

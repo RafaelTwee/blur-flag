@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, jsonify
+from flask import Flask, render_template, session, jsonify, request
 import sqlite3
 import datetime
 import random
@@ -28,6 +28,21 @@ def get_daily_flag():
 
     conn.close()
     return bandeira_do_dia
+
+def get_random_flag():
+    # Conectando ao banco de dados
+    conn = sqlite3.connect('bandeiras.db')
+    cursor = conn.cursor()
+
+    # Obtendo todas as bandeiras
+    cursor.execute('SELECT nome, url FROM bandeiras')
+    bandeiras = cursor.fetchall()
+
+    # Selecionando uma bandeira aleatória
+    bandeira_aleatoria = random.choice(bandeiras)
+
+    conn.close()
+    return bandeira_aleatoria
 
 def get_all_countries():
     # Conectando ao banco de dados
@@ -61,6 +76,12 @@ def acertou():
     data_hoje = datetime.date.today().strftime('%Y-%m-%d')
     session['acertou_' + data_hoje] = True
     return '', 204  # Resposta vazia com código 204 (No Content)
+
+@app.route('/proxima_bandeira', methods=['POST'])
+def proxima_bandeira():
+    # Endpoint para mudar a bandeira (apenas para testes)
+    bandeira = get_random_flag()
+    return jsonify({'nome': bandeira[0], 'url': bandeira[1]})
 
 if __name__ == '__main__':
     app.run(debug=True)
