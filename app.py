@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session
+from flask import Flask, render_template, session, jsonify
 import sqlite3
 import datetime
 import random
@@ -29,6 +29,18 @@ def get_daily_flag():
     conn.close()
     return bandeira_do_dia
 
+def get_all_countries():
+    # Conectando ao banco de dados
+    conn = sqlite3.connect('bandeiras.db')
+    cursor = conn.cursor()
+
+    # Obtendo todos os nomes de países
+    cursor.execute('SELECT nome FROM bandeiras ORDER BY nome')
+    paises = [row[0] for row in cursor.fetchall()]
+
+    conn.close()
+    return paises
+
 @app.route('/')
 def index():
     bandeira = get_daily_flag()
@@ -37,6 +49,11 @@ def index():
     acertou_hoje = session.get('acertou_' + data_hoje, False)
     
     return render_template('index.html', bandeira=bandeira, acertou_hoje=acertou_hoje)
+
+@app.route('/paises')
+def paises():
+    # Retorna a lista de países em formato JSON para autocomplete
+    return jsonify(get_all_countries())
 
 @app.route('/acertou')
 def acertou():

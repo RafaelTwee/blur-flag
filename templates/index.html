@@ -2,23 +2,36 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Blur Flag</title>
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo das Bandeiras</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Qual é a bandeira?</h1>
-    <p>Bandeira diária - {{ bandeira[0] }}</p>
-    <img id="bandeira" class="bandeira" src="{{ bandeira[1] }}" alt="Bandeira" style="filter: blur(10px);">
+    <h1>Blur Flag</h1>
     
-    <form id="form-palpite">
-        <input type="text" id="palpite" placeholder="Digite o nome do país" autocomplete="off">
-        <button type="submit">Enviar</button>
-    </form>
+    <div class="game-container">
+        <h2>Qual é a bandeira do dia?</h2>
+        <img id="bandeira" class="bandeira" src="{{ bandeira[1] }}" alt="Bandeira" style="filter: blur(10px);">
+        
+        <div class="input-container">
+            <form id="form-palpite">
+                <div class="autocomplete">
+                    <input type="text" id="palpite" placeholder="Digite o nome do país" autocomplete="off">
+                    <div id="paises-dropdown" class="dropdown-list"></div>
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+        
+        <div id="feedback"></div>
+        
+        <div class="contador">Cada tentativa incorreta diminui o desfoque da imagem</div>
+    </div>
     
-    <div id="feedback"></div>
-    
-    <div class="contador">Tentativas restantes para reduzir o blur: 5</div>
+    <footer>
+        <p>Jogo diário de adivinhação de bandeiras. Volte amanhã para uma nova bandeira!</p>
+    </footer>
     
     <script>
         // Passando o nome do país para o JavaScript

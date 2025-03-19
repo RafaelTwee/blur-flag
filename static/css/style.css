@@ -1,7 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f4f4f4;
+    background-color: #1b1a1f;
+    color: #dadada;
     margin: 0;
     padding: 20px;
     display: flex;
@@ -10,49 +11,100 @@ body {
 }
 
 h1 {
-    color: #333;
-    margin-bottom: 10px;
+    color: #dadada;
+    margin-bottom: 20px;
+}
+
+.game-container {
+    max-width: 600px;
+    width: 100%;
+    background-color: #252429;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    padding: 20px;
+    margin-bottom: 30px;
 }
 
 .bandeira {
     width: 300px;
     height: auto;
-    margin: 20px 0;
+    margin: 20px auto;
+    display: block;
     transition: filter 0.5s ease;
-    border: 1px solid #ddd;
+    border: 1px solid #333;
     border-radius: 5px;
 }
 
-#form-palpite {
+.input-container {
     margin: 20px 0;
+    position: relative;
+}
+
+.autocomplete {
+    position: relative;
+    display: inline-block;
+    width: 70%;
 }
 
 input {
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
-    border: 1px solid #ddd;
+    border: 1px solid #333;
     border-radius: 4px;
-    margin-right: 10px;
-    width: 200px;
+    width: 100%;
+    background-color: #2a292e;
+    color: #dadada;
+}
+
+input::placeholder {
+    color: #888;
+}
+
+.dropdown-list {
+    position: absolute;
+    background-color: #2a292e;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #333;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 100;
+    display: none;
+    text-align: left;
+    color: #dadada;
+}
+
+.dropdown-item {
+    padding: 10px 12px;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #3a393e;
 }
 
 button {
-    padding: 10px 15px;
+    padding: 12px 20px;
     font-size: 16px;
-    background-color: #007bff;
-    color: white;
+    background-color: #8ccf7f;
+    color: #1b1a1f;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-left: 10px;
+    font-weight: bold;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #7abf6d;
 }
 
 button:disabled {
-    background-color: #cccccc;
+    background-color: #4a4a4a;
+    color: #888;
     cursor: not-allowed;
 }
 
@@ -62,22 +114,89 @@ button:disabled {
 }
 
 .success {
-    color: #28a745;
+    color: #8ccf7f;
     font-weight: bold;
     padding: 10px;
     border-radius: 4px;
-    background-color: #d4edda;
+    background-color: rgba(140, 207, 127, 0.2);
+    border: 1px solid #8ccf7f;
 }
 
 .hint {
-    color: #856404;
+    color: #dadada;
     padding: 10px;
     border-radius: 4px;
-    background-color: #fff3cd;
+    background-color: rgba(255, 243, 205, 0.1);
+    border: 1px solid #8ccf7f;
 }
 
 .contador {
     margin-top: 20px;
     font-size: 14px;
-    color: #666;
+    color: #b0b0b0;
+}
+
+@media (max-width: 768px) {
+    .autocomplete {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    button {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .input-container form {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+footer {
+    margin-top: 30px;
+    color: #888;
+    font-size: 14px;
+}
+
+h2 {
+    color: #8ccf7f;
+    margin-bottom: 15px;
+    font-weight: normal;
+}
+
+/* Estilos para scrollbar no dropdown */
+.dropdown-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dropdown-list::-webkit-scrollbar-track {
+    background: #2a292e;
+}
+
+.dropdown-list::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+.dropdown-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Efeito de foco na caixa de entrada */
+input:focus {
+    outline: none;
+    border-color: #8ccf7f;
+    box-shadow: 0 0 5px rgba(140, 207, 127, 0.5);
+}
+
+/* Ajuste para botão desabilitado */
+button:disabled {
+    background-color: #4a4a4a;
+    color: #888;
+}
+
+/* Animação de transição para o feedback */
+#feedback div {
+    transition: all 0.3s ease;
 }
