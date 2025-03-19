@@ -2,10 +2,10 @@ import requests
 import sqlite3
 
 # URL da API de bandeiras
-a = 'https://restcountries.com/v3.1/all'
+api_url = 'https://restcountries.com/v3.1/all'
 
 def atualizar_banco():
-    response = requests.get(a)
+    response = requests.get(api_url)
     countries = response.json()
 
     # Conectando ao banco de dados SQLite

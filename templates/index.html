@@ -2,18 +2,26 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Jogo das Bandeiras</title>
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <title>Blur Flag</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.png') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <h1>Qual é a bandeira?</h1>
-    <img id="bandeira" class="bandeira" src="{{ bandeira[1] }}" alt="Bandeira">
+    <p>Bandeira diária - {{ bandeira[0] }}</p>
+    <img id="bandeira" class="bandeira" src="{{ bandeira[1] }}" alt="Bandeira" style="filter: blur(10px);">
+    
     <form id="form-palpite">
-        <input type="text" id="palpite" placeholder="Digite o nome do país">
+        <input type="text" id="palpite" placeholder="Digite o nome do país" autocomplete="off">
         <button type="submit">Enviar</button>
     </form>
+    
+    <div id="feedback"></div>
+    
+    <div class="contador">Tentativas restantes para reduzir o blur: 5</div>
+    
     <script>
+        // Passando o nome do país para o JavaScript
         const nomePais = "{{ bandeira[0] }}".toLowerCase();
     </script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
