@@ -1,12 +1,15 @@
 <div align="center">
   <img src="static/images/blur-flag.png" alt="Blur Flag Logo" width="400">
 </div>
-
+<br>
+<hr>
+<br>
+<br>
 Blur Flag é um jogo diário de adivinhação de bandeiras. Tente identificar a bandeira do dia conforme o desfoque diminui a cada tentativa incorreta!
 
 ## Demonstração
 
-O jogo está disponível em [https://blur-flag.vercel.app](https://blur-flag.vercel.app)
+O jogo está disponível em [Blur FLag](https://blur-flag.vercel.app)
 
 ## Descrição
 
