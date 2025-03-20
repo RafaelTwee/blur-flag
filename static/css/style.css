@@ -156,6 +156,8 @@ input::placeholder {
     display: none;
     text-align: left;
     color: #dadada;
+    scrollbar-width: thin; /* Para Firefox */
+    scrollbar-color: #444 #2a292e; /* Para Firefox */
 }
 
 .dropdown-item {
@@ -270,6 +272,13 @@ footer {
     color: #dadada;
 }
 
+/* Efeito de foco na caixa de entrada */
+input:focus {
+    outline: none;
+    border-color: #8ccf7f;
+    box-shadow: 0 0 5px rgba(140, 207, 127, 0.5);
+}
+
 /* Scrollbar personalizada */
 .dropdown-list::-webkit-scrollbar {
     width: 8px;
@@ -277,6 +286,7 @@ footer {
 
 .dropdown-list::-webkit-scrollbar-track {
     background: #2a292e;
+    border-radius: 0 0 4px 0;
 }
 
 .dropdown-list::-webkit-scrollbar-thumb {
@@ -288,11 +298,10 @@ footer {
     background: #555;
 }
 
-/* Efeito de foco na caixa de entrada */
-input:focus {
-    outline: none;
-    border-color: #8ccf7f;
-    box-shadow: 0 0 5px rgba(140, 207, 127, 0.5);
+/* Item selecionado no dropdown */
+.dropdown-item.selected {
+    background-color: #3a393e;
+    border-left: 3px solid #8ccf7f;
 }
 
 /* Responsividade */
