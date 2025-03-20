@@ -1,8 +1,6 @@
 <div align="center">
-  <img src="static/images/blur-flag.png" alt="Blur Flag Logo" width="200">
+  <img src="static/images/blur-flag.png" alt="Blur Flag Logo" width="400">
 </div>
-
-# Blur Flag
 
 Blur Flag é um jogo diário de adivinhação de bandeiras. Tente identificar a bandeira do dia conforme o desfoque diminui a cada tentativa incorreta!
 
