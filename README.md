@@ -1,10 +1,14 @@
+<br>
+<br>
+<br>
 <div align="center">
   <img src="static/images/blur-flag.png" alt="Blur Flag Logo" width="400">
 </div>
 <br>
+<br>
 <hr>
-<br>
-<br>
+
+
 Blur Flag é um jogo diário de adivinhação de bandeiras. Tente identificar a bandeira do dia conforme o desfoque diminui a cada tentativa incorreta!
 
 ## Demonstração
@@ -30,6 +34,13 @@ Blur Flag desafia os jogadores a identificarem países pela sua bandeira, inicia
 3. Digite sua resposta no campo indicado
 4. Se errar, o desfoque diminuirá para sua próxima tentativa
 5. Você tem 5 tentativas para acertar
+
+## Screenshots
+
+<div align="center">
+  <img src="static/images/im1.png" alt="Blur Flag Logo" width="400">
+  <img src="static/images/im2.png" alt="Blur Flag Logo" width="400">
+</div>
 
 ## Tecnologias Utilizadas
 
