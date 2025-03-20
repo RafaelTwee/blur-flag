@@ -13,7 +13,7 @@
 <body>
     <!-- Cabeçalho com ícones -->
     <header class="main-header">
-        <a href="http://127.0.0.1:5000/" target="_blank" class="nav-icon">
+        <a href="https://blur-flag.vercel.app/" target="_blank" class="nav-icon">
             <div class="logo">Blur Flag</div>
         </a>
         
@@ -32,26 +32,28 @@
 
     <!-- Conteúdo principal -->
     <main class="main-content">
-        <h1 style="font-size:70px;">Blur Flag</h1>
-        
+        <h1 style="font-size:30px;">Qual é a bandeira do dia?</h1>
+        <h2 id="cronometro">Nova bandeira em: 00:00:00</h2>
         <div class="game-container">
-            <h2>Qual é a bandeira do dia?</h2>
-            <img id="bandeira" class="bandeira" src="{{ bandeira[1] }}" alt="Bandeira" style="filter: blur(10px);">
             
-            <!-- Botão para mudar bandeira (apenas para testes) -->
+            <img id="bandeira" class="bandeira" src="{{ bandeira[1] }}" alt="Bandeira" style="filter: blur(50px);">
+            
+            <!-- Botão para mudar bandeira (apenas para testes) 
             <div class="actions-container">
                 <button id="next-flag" class="btn-next-flag">
                     <i class="fas fa-sync-alt"></i> Próxima Bandeira (Teste)
                 </button>
             </div>
-            
+            -->
             <div class="input-container">
                 <form id="form-palpite">
                     <div class="autocomplete">
                         <input type="text" id="palpite" placeholder="Digite o nome do país" autocomplete="off">
                         <div id="paises-dropdown" class="dropdown-list"></div>
                     </div>
-                    <button type="submit">Enviar</button>
+                    <button type="submit">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
                 </form>
             </div>
             

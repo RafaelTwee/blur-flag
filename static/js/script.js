@@ -8,10 +8,56 @@ document.addEventListener("DOMContentLoaded", function() {
     const settingsIcon = document.getElementById("settings-icon");
     const settingsModal = document.getElementById("settings-modal");
     const closeModal = document.querySelector(".close-modal");
+    const cronometroElement = document.getElementById("cronometro");
     
     // O nomePais é definido no HTML diretamente
     let tentativas = 0;
+    const maxTentativas = 5;
     let selectedItemIndex = -1;
+    let blurInicial = 50; // Blur inicial mais intenso
+    
+    // Função para atualizar o contador regressivo
+    function atualizarCronometro() {
+        // Obter a data e hora atual
+        const agora = new Date();
+        
+        // Calcular a próxima meia-noite (00:00:00)
+        const amanha = new Date(agora);
+        amanha.setDate(amanha.getDate() + 1);
+        amanha.setHours(0, 0, 0, 0);
+        
+        // Calcular a diferença em milissegundos
+        const diferenca = amanha - agora;
+        
+        // Converter para horas, minutos e segundos
+        let horas = Math.floor(diferenca / (1000 * 60 * 60));
+        let minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+        let segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+        
+        // Adicionar zeros à esquerda se necessário
+        horas = horas.toString().padStart(2, "0");
+        minutos = minutos.toString().padStart(2, "0");
+        segundos = segundos.toString().padStart(2, "0");
+        
+        // Atualizar o elemento HTML
+        cronometroElement.textContent = `Nova bandeira em: ${horas}:${minutos}:${segundos}`;
+    }
+    
+    // Atualizar o cronômetro imediatamente
+    atualizarCronometro();
+    
+    // Atualizar o cronômetro a cada segundo
+    setInterval(atualizarCronometro, 1000);
+    
+    // Função para atualizar o feedback com as tentativas restantes
+    function atualizarContadorTentativas() {
+        const tentativasRestantes = maxTentativas - tentativas;
+        document.querySelector(".contador").innerHTML = 
+            `Tentativas restantes: <strong>${tentativasRestantes}</strong><br>Cada tentativa incorreta diminui o desfoque da imagem`;
+    }
+    
+    // Inicializar o contador de tentativas
+    atualizarContadorTentativas();
     
     // Abrir modal de configurações
     settingsIcon.addEventListener("click", function() {
@@ -30,19 +76,20 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
     
-    // Botão para mudar bandeira (apenas para testes)
+    /* Botão para mudar bandeira (apenas para testes)
     nextFlagBtn.addEventListener("click", function() {
         fetch('/proxima_bandeira', { method: 'POST' })
             .then(response => response.json())
             .then(data => {
                 // Atualizar a imagem da bandeira
                 imgBandeira.src = data.url;
-                // Redefinir o blur
-                imgBandeira.style.filter = "blur(10px)";
+                // Redefinir o blur para o valor inicial
+                imgBandeira.style.filter = `blur(${blurInicial}px)`;
                 // Redefinir o nome do país
                 window.nomePais = data.nome.toLowerCase();
                 // Redefinir o estado do jogo
                 tentativas = 0;
+                atualizarContadorTentativas();
                 inputPalpite.disabled = false;
                 formPalpite.querySelector("button").disabled = false;
                 inputPalpite.value = "";
@@ -52,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.error('Erro ao buscar próxima bandeira:', error);
             });
     });
-    
+    */
     // Lista de todos os países para o autocomplete
     fetch('/paises')
         .then(response => response.json())
@@ -195,28 +242,31 @@ document.addEventListener("DOMContentLoaded", function() {
             // Registrar o acerto
             fetch('/acertou');
         } else {
-            // Reduzindo o blur gradualmente
-            let blurAtual = getComputedStyle(imgBandeira).filter;
-            let valorBlur = 10; // Valor padrão inicial
+            // Reduzindo o blur gradualmente baseado no número máximo de tentativas
+            const blurDecremento = blurInicial / maxTentativas;
+            const novoBlur = Math.max(0, blurInicial - (blurDecremento * tentativas));
+            imgBandeira.style.filter = `blur(${novoBlur}px)`;
             
-            if (blurAtual.includes("blur")) {
-                valorBlur = parseFloat(blurAtual.match(/blur\(([^)]+)px\)/)[1]);
-            }
+            // Atualizar contador de tentativas
+            atualizarContadorTentativas();
             
-            if (valorBlur > 0) {
-                valorBlur = Math.max(0, valorBlur - 2);
-                imgBandeira.style.filter = `blur(${valorBlur}px)`;
-            }
-            
-            // Dando dicas baseadas na primeira letra
-            let primeiraPalpite = palpite.charAt(0);
-            let paisCorreto = window.nomePais || nomePais;
-            let primeiraCorreta = paisCorreto.charAt(0);
-            
-            if (primeiraPalpite === primeiraCorreta) {
-                feedbackElement.innerHTML = "<div class='hint'>A primeira letra está correta. Continue tentando!</div>";
+            // Verificar se acabaram as tentativas
+            if (tentativas >= maxTentativas) {
+                feedbackElement.innerHTML = `<div class='hint'>Suas tentativas acabaram! O país correto era ${window.nomePais || nomePais}.</div>`;
+                imgBandeira.style.filter = "blur(0px)";
+                inputPalpite.disabled = true;
+                formPalpite.querySelector("button").disabled = true;
             } else {
-                feedbackElement.innerHTML = `<div class='hint'>Tente um país que começa com a letra "${primeiraCorreta.toUpperCase()}"</div>`;
+                // Dando dicas baseadas na primeira letra
+                let primeiraPalpite = palpite.charAt(0);
+                let paisCorreto = window.nomePais || nomePais;
+                let primeiraCorreta = paisCorreto.charAt(0);
+                
+                if (primeiraPalpite === primeiraCorreta) {
+                    feedbackElement.innerHTML = "<div class='hint'>A primeira letra está correta. Continue tentando!</div>";
+                } else {
+                    feedbackElement.innerHTML = `<div class='hint'>Tente um país que começa com a letra "${primeiraCorreta.toUpperCase()}"</div>`;
+                }
             }
             
             // Limpando o campo de entrada
