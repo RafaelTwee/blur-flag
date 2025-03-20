@@ -6,31 +6,31 @@
 
 Blur Flag é um jogo diário de adivinhação de bandeiras. Tente identificar a bandeira do dia conforme o desfoque diminui a cada tentativa incorreta!
 
-## 🎮 Demonstração
+## Demonstração
 
 O jogo está disponível em [https://blur-flag.vercel.app](https://blur-flag.vercel.app)
 
-## 📝 Descrição
+## Descrição
 
 Blur Flag desafia os jogadores a identificarem países pela sua bandeira, inicialmente apresentada com um forte desfoque. A cada tentativa incorreta, o desfoque diminui gradualmente revelando mais detalhes da imagem.
 
 ### Características Principais
 
-- 🌎 Uma nova bandeira de país todos os dias
-- ⏱️ Cronômetro para mostrar quando a próxima bandeira estará disponível
-- 🔍 Sistema de desfoque progressivo que diminui a cada tentativa incorreta
-- 💡 Dicas baseadas na letra inicial do país
-- 📱 Design responsivo para dispositivos desktop e móveis
+- Uma nova bandeira de país todos os dias
+- Cronômetro para mostrar quando a próxima bandeira estará disponível
+- Sistema de desfoque progressivo que diminui a cada tentativa incorreta
+- Dicas baseadas na letra inicial do país
+- Design responsivo para dispositivos desktop e móveis
 
-## 🚀 Como Jogar
+## Como Jogar
 
-1. Acesse [https://blur-flag.vercel.app](https://blur-flag.vercel.app)
+1. Acesse [Blur Flag](https://blur-flag.vercel.app)
 2. Observe a bandeira desfocada e tente adivinhar qual país ela representa
 3. Digite sua resposta no campo indicado
 4. Se errar, o desfoque diminuirá para sua próxima tentativa
 5. Você tem 5 tentativas para acertar
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Frontend**: HTML5, CSS3, JavaScript
 - **Backend**: Python, Flask
@@ -38,7 +38,7 @@ Blur Flag desafia os jogadores a identificarem países pela sua bandeira, inicia
 - **API**: RESTCountries para informações sobre países e bandeiras
 - **Deployment**: Vercel
 
-## 🧩 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 blur-flag/
@@ -54,7 +54,7 @@ blur-flag/
 └── bandeiras.db            # Banco de dados SQLite de bandeiras
 ```
 
-## 📥 Instalação e Execução
+## Instalação e Execução
 
 1. Clone o repositório
    ```bash
@@ -79,7 +79,7 @@ blur-flag/
 
 5. Acesse `http://localhost:5000` no navegador
 
-## 🔮 Próximas Atualizações
+## Próximas Atualizações
 
 - [ ] Sistema de estatísticas para jogadores
 - [ ] Compartilhamento de resultados nas redes sociais
@@ -87,13 +87,13 @@ blur-flag/
 - [ ] Mais temas visuais
 - [ ] Opções de acessibilidade
 
-## 👥 Contribuições
+## Contribuições
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
 
-## 📄 Licença
+## Licença
 
-Este projeto está licenciado sob a [MIT License](LICENSE).
+Este projeto ainda não possui uma licença.
 
 ---
 
